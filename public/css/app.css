@@ -1,0 +1,47 @@
+/* =========================
+   Typography
+========================= */
+body {
+    font-family: "Poppins", sans-serif;
+}
+
+h2 {
+    font-weight: 700;
+}
+
+/* =========================
+   Navbar Dropdown Modern
+========================= */
+.navbar .dropdown-menu {
+    border-radius: 0.75rem; /* sudut membulat lebih halus */
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15); /* shadow ringan */
+    padding: 0.5rem 0;
+    z-index: 1055; /* pastikan dropdown di atas konten lain */
+    min-width: 220px; /* lebar minimum dropdown */
+}
+
+/* Item Dropdown */
+.navbar .dropdown-menu .dropdown-item {
+    padding: 0.6rem 1.5rem;
+    color: #212529; /* default teks */
+    font-weight: 500;
+    border-radius: 0.5rem; /* sudut pada item */
+    transition: background-color 0.25s, color 0.25s;
+}
+
+/* Hover / Active State */
+.navbar .dropdown-menu .dropdown-item:hover,
+.navbar .dropdown-menu .dropdown-item.active {
+    background-color: rgba(40, 167, 69, 0.2); /* hijau transparan lembut */
+    color: #28a745; /* teks hijau */
+}
+
+/* Dropdown End (posisi kanan) */
+.navbar .dropdown-menu.dropdown-menu-end {
+    min-width: 200px;
+}
+
+/* Hero Title Shadow */
+.text-shadow {
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+}
