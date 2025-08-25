@@ -142,55 +142,94 @@
     </main>
 
     {{-- Footer --}}
-    <footer class="bg-success text-white pt-5 pb-3 mt-5">
+    <footer class="bg-success text-white pt-5 pb-4 mt-5">
         <div class="container">
             <div class="row gy-4">
-                {{-- Kolom 1 --}}
+
+                {{-- Kolom 1: Kontak & Maps --}}
                 <div class="col-md-4">
-                    <h5 class="fw-semibold mb-3">Desa Pabuaran</h5>
-                    <p class="mb-1"><i class="bi bi-geo-alt-fill me-2"></i>Raya Pabuaran No 01. RT 002/002 Desa
+                    <h5 class="fw-bold mb-3">Desa Pabuaran</h5>
+                    <p class="mb-1"><i class="bi bi-geo-alt-fill me-2"></i>Raya Pabuaran No 01, RT 002/002, Desa
                         Pabuaran, Kec. Kemang, Kab. Bogor</p>
                     <p class="mb-3"><i class="bi bi-envelope-fill me-2"></i>pemdespabuaran001@gmail.com</p>
-                    <div class="ratio ratio-16x9 rounded shadow-sm">
+                    <div class="ratio ratio-16x9 rounded shadow-sm overflow-hidden">
                         <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.1800657528092!2d106.7360589202192!3d-6.498874259949035!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69c2da8586ea5f%3A0x9d213c1cac0155e7!2sKantor%20Desa%20Pabuaran%20Kec.%20Kemang!5e0!3m2!1sid!2sid!4v1755661884705!5m2!1sid!2sid"
-                            width="100%" height="100%" style="border:0;" allowfullscreen loading="lazy"></iframe>
+                            width="100%" height="100%" style="border:0;" allowfullscreen=""
+                            loading="lazy"></iframe>
                     </div>
                 </div>
 
-                {{-- Kolom 2 --}}
+                {{-- Kolom 2: Navigasi --}}
                 <div class="col-md-4">
-                    <h5 class="fw-semibold mb-3">Navigasi</h5>
+                    <h5 class="fw-bold mb-3">Navigasi</h5>
                     <ul class="list-unstyled">
-                        <li><a href="{{ route('user.beranda') }}"
-                                class="text-white-50 text-decoration-none">Beranda</a></li>
-                        <li><a href="{{ route('user.profil.visi_misi') }}"
-                                class="text-white-50 text-decoration-none">Profil</a></li>
-                        <li><a href="{{ route('user.potensi.index') }}"
-                                class="text-white-50 text-decoration-none">Potensi
-                                Desa</a></li>
-                        <li><a href="#" class="text-white-50 text-decoration-none">Layanan</a></li>
+                        @php
+                            $links = [
+                                ['route' => 'user.beranda', 'label' => 'Beranda'],
+                                ['route' => 'user.profil.visi_misi', 'label' => 'Profil - Visi & Misi'],
+                                ['route' => 'user.profil.sejarah_desa', 'label' => 'Profil - Sejarah'],
+                                ['route' => 'user.struktural.kepengurusan', 'label' => 'Struktural - Kepengurusan'],
+                                ['route' => 'user.struktural.lembaga_bpd', 'label' => 'Struktural - Lembaga BPD'],
+                                ['route' => 'user.potensi.index', 'label' => 'Potensi Desa'],
+                                ['route' => 'user.berita.index', 'label' => 'Berita'],
+                                ['route' => 'user.layanan.surat', 'label' => 'Layanan - Template Surat'],
+                                ['route' => 'user.layanan.proposal', 'label' => 'Layanan - Pengajuan Proposal'],
+                            ];
+                        @endphp
+                        @foreach ($links as $link)
+                            <li class="mb-2">
+                                <a href="{{ route($link['route']) }}"
+                                    class="text-white-50 text-decoration-none hover-link">
+                                    {{ $link['label'] }}
+                                </a>
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
 
-                {{-- Kolom 3 --}}
+                {{-- Kolom 3: Sosial Media --}}
                 <div class="col-md-4">
-                    <h5 class="fw-semibold mb-3">Ikuti Kami</h5>
+                    <h5 class="fw-bold mb-3">Ikuti Kami</h5>
                     <div class="d-flex gap-3">
-                        <a href="#" target="_blank" rel="noopener noreferrer" class="text-white fs-5"><i
-                                class="bi bi-facebook"></i></a>
+                        <a href="#" target="_blank" rel="noopener noreferrer"
+                            class="text-white fs-5 social-icon"><i class="bi bi-facebook"></i></a>
                         <a href="https://www.instagram.com/pabuaran_maju" target="_blank" rel="noopener noreferrer"
-                            class="text-white fs-5"><i class="bi bi-instagram"></i></a>
-                        <a href="#" target="_blank" rel="noopener noreferrer" class="text-white fs-5"><i
-                                class="bi bi-youtube"></i></a>
+                            class="text-white fs-5 social-icon"><i class="bi bi-instagram"></i></a>
+                        <a href="#" target="_blank" rel="noopener noreferrer"
+                            class="text-white fs-5 social-icon"><i class="bi bi-youtube"></i></a>
                     </div>
                 </div>
+
             </div>
 
-            <hr class="border-white opacity-25 mt-4">
-            <div class="text-center small">© {{ date('Y') }} Desa Pabuaran. All rights reserved.</div>
+            {{-- Footer bottom --}}
+            <div class="text-center small mt-4 pt-3 border-top border-white-25">
+                © {{ date('Y') }} Desa Pabuaran. All rights reserved. <br>
+                🚀 Website dikelola bersama KKN Desa Pabuaran UNIDA |
+                Laporkan bug/error via
+                <a href="https://www.instagram.com/kkn_desapabuaran" target="_blank" rel="noopener noreferrer"
+                    class="text-white text-decoration-none hover-link">
+                    <i class="bi bi-instagram me-1"></i> @kkn_desapabuaran
+                </a>
+            </div>
         </div>
+
+        {{-- Custom hover style --}}
+        <style>
+            .hover-link:hover {
+                text-decoration: underline;
+                color: #fff;
+            }
+
+            .social-icon:hover {
+                color: #ffc107;
+                transform: scale(1.1);
+                transition: all 0.3s ease;
+            }
+        </style>
     </footer>
+
 
     {{-- JS --}}
 
