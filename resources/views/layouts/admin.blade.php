@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Dashboard</title>
+    <title>@yield('title', 'AdminLTE 3')</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -39,6 +39,10 @@
     <link rel="stylesheet" href="{{ asset('lte/plugins/summernote/summernote-bs4.min.css') }}">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <!-- Favicon -->
+    <link rel="icon" href="{{ asset('storage/images/logo.svg') }}" type="image/svg+xml">
+    <link rel="shortcut icon" href="{{ asset('storage/images/logo.svg') }}" type="image/svg+xml">
 
 
 </head>
@@ -127,7 +131,8 @@
                                 <div class="media-body">
                                     <h3 class="dropdown-item-title">
                                         John Pierce
-                                        <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
+                                        <span class="float-right text-sm text-muted"><i
+                                                class="fas fa-star"></i></span>
                                     </h3>
                                     <p class="text-sm">I got your message bro</p>
                                     <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
@@ -283,33 +288,6 @@
 
                         </li>
 
-                        {{-- Layanan --}}
-                        <li
-                            class="nav-item has-treeview {{ request()->routeIs('admin.layanan.*') ? 'menu-open' : '' }}">
-                            <a href="{{ route('admin.layanan.index') }}"
-                                class="nav-link {{ request()->routeIs('admin.layanan.*') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-cogs"></i>
-                                <p>
-                                    Layanan
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('admin.layanan.surat.index') }}"
-                                        class="nav-link {{ request()->routeIs('admin.layanan.surat.*') ? 'active' : '' }}">
-                                        <i class="fas fa-envelope nav-icon"></i> {{-- icon untuk Surat --}}
-                                        <p>Surat</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('admin.layanan.proposal.index') }}"
-                                        class="nav-link {{ request()->routeIs('admin.layanan.proposal.*') ? 'active' : '' }}">
-                                        <i class="fas fa-file-alt nav-icon"></i> {{-- icon untuk Proposal --}}
-                                        <p>Proposal</p>
-                                    </a>
-                                </li>
-                            </ul>
 
                         <li class="nav-item">
                             <a href="{{ route('admin.galeri.index') }}"
@@ -318,6 +296,35 @@
                                 <p>Galeri</p>
                             </a>
                         </li>
+
+                        <li
+                            class="nav-item has-treeview {{ request()->routeIs('admin.layanan.*') || request()->routeIs('admin.settings.*') ? 'menu-open' : '' }}">
+                            <a href="#"
+                                class="nav-link {{ request()->routeIs('admin.layanan.*') || request()->routeIs('admin.settings.*') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-envelope"></i>
+                                <p>
+                                    Layanan
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.layanan.index') }}"
+                                        class="nav-link {{ request()->routeIs('admin.layanan.*') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Daftar Dokumen</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.settings.index') }}"
+                                        class="nav-link {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Settings</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
 
                         <li class="nav-item">
                             <!-- Form Logout (tersembunyi) -->
@@ -339,10 +346,31 @@
             </div>
             <!-- /.sidebar -->
         </aside>
-
         <!-- Content Wrapper. Contains page content -->
+
+        <!-- Alert Notifikasi -->
+        <div style="position: fixed; top: 1rem; right: 1rem; z-index: 1050;">
+            @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert" id="success-alert">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if ($errors->any())
+                <div class="alert alert-danger alert-dismissible fade show" role="alert" id="error-alert">
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+        </div>
+
+        <!-- Halaman konten utama -->
         @yield('content')
         <!-- /.content-wrapper -->
+
         <footer class="main-footer">
             <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
             All rights reserved.
@@ -407,6 +435,44 @@
 
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{ asset('lte/dist/js/pages/dashboard.js') }}"></script>
+
+    <!-- Script otomatis hide alert -->
+    @push('scripts')
+        <script>
+            window.addEventListener('DOMContentLoaded', (event) => {
+                const alert = document.getElementById('autoAlert');
+                if (alert) {
+                    setTimeout(() => {
+                        // fade out
+                        alert.classList.remove('show');
+                        alert.classList.add('hide');
+                    }, 4000); // 4 detik
+                }
+            });
+        </script>
+
+        <!-- Script untuk otomatis hilang -->
+        <script>
+            window.addEventListener('DOMContentLoaded', (event) => {
+                const successAlert = document.getElementById('success-alert');
+                const errorAlert = document.getElementById('error-alert');
+
+                if (successAlert) {
+                    setTimeout(() => {
+                        successAlert.classList.remove('show');
+                        successAlert.classList.add('hide');
+                    }, 3000); // 3 detik
+                }
+
+                if (errorAlert) {
+                    setTimeout(() => {
+                        errorAlert.classList.remove('show');
+                        errorAlert.classList.add('hide');
+                    }, 5000); // 5 detik
+                }
+            });
+        </script>
+    @endpush
 
 </body>
 

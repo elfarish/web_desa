@@ -117,14 +117,15 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end shadow-sm rounded-4 px-2 py-2">
                             <li>
-                                <a class="dropdown-item {{ request()->routeIs('user.layanan.surat') ? 'active fw-semibold text-success' : '' }}"
+                                <a class="dropdown-item {{ request()->routeIs('layanan.surat') ? 'active fw-semibold text-success' : '' }}"
                                     href="{{ route('user.layanan.surat') }}">
                                     <i class="bi bi-file-earmark-text me-2 text-success"></i> Template Surat
                                 </a>
                             </li>
+
                             <li>
                                 <a class="dropdown-item {{ request()->routeIs('user.layanan.pengajuan') ? 'active fw-semibold text-success' : '' }}"
-                                    href="{{ route('user.layanan.pengajuan') }}">
+                                    href="{{ route('user.layanan.proposal') }}">
                                     <i class="bi bi-send-check me-2 text-success"></i> Pengajuan Proposal
                                 </a>
                             </li>
@@ -168,8 +169,7 @@
                         <li><a href="{{ route('user.potensi.index') }}"
                                 class="text-white-50 text-decoration-none">Potensi
                                 Desa</a></li>
-                        <li><a href="{{ route('user.layanan.surat') }}"
-                                class="text-white-50 text-decoration-none">Layanan</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none">Layanan</a></li>
                     </ul>
                 </div>
 

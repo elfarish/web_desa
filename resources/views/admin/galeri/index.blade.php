@@ -1,5 +1,8 @@
 @extends('layouts.admin')
 
+@section('title', 'Berita - Admin')
+
+
 @section('content')
     <div class="content-wrapper">
         <!-- Content Header -->

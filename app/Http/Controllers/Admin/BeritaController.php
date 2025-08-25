@@ -37,14 +37,18 @@ class BeritaController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'judul'     => 'required|string|max:255',
-            'kategori'  => 'required|string',
-            'ringkasan' => 'required|string',
-            'isi'       => 'required|string',
+            'judul'     => 'required|string|max:300',
+            'kategori'  => 'required|string|max:100',
+            'ringkasan' => 'required|string', // max 500 karakter
+            'isi'       => 'required|string', // max 5000 karakter
             'status'    => 'required|in:draft,published,pending',
             'tanggal'   => 'required|date',
-            'gambar'    => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+            'gambar'    => 'nullable|image|mimes:jpeg,jpg,png,gif|max:2048',
+        ], [
+            'ringkasan.max' => 'Ringkasan terlalu panjang. Maksimal 500 karakter.',
+            'isi.max'       => 'Isi berita terlalu panjang. Maksimal 5000 karakter.',
         ]);
+
 
         $path = null;
         if ($request->hasFile('gambar')) {
@@ -100,13 +104,16 @@ class BeritaController extends Controller
         $berita = Berita::findOrFail($id);
 
         $validated = $request->validate([
-            'judul'     => 'required|string|max:255',
+            'judul'     => 'required|string|max:300',
             'kategori'  => 'required|string|max:100',
+            'ringkasan' => 'required|string', // max 500 karakter
+            'isi'       => 'required|string', // max 5000 karakter
+            'status'    => 'required|in:draft,published,pending',
             'tanggal'   => 'required|date',
-            'status'    => 'required|in:draft,published',
-            'ringkasan' => 'required|string',
-            'isi'       => 'required|string',
-            'gambar'    => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'gambar'    => 'nullable|image|mimes:jpeg,jpg,png,gif|max:2048',
+        ], [
+            'ringkasan.max' => 'Ringkasan terlalu panjang. Maksimal 500 karakter.',
+            'isi.max'       => 'Isi berita terlalu panjang. Maksimal 5000 karakter.',
         ]);
 
         if ($request->hasFile('gambar')) {

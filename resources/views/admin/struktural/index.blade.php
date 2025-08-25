@@ -1,5 +1,7 @@
 @extends('layouts.admin')
 
+@section('title', 'Struktural Desa - Admin')
+
 @section('content')
     <div class="content-wrapper">
         <!-- Header -->
@@ -115,18 +117,19 @@
                                             <td>{{ $anggota->jabatan }}</td>
                                             <td class="text-center">
                                                 <div class="d-flex justify-content-center gap-2">
-                                                    <a href="{{ route('admin.struktural.edit', $staf->id) }}"
+                                                    <a href="{{ route('admin.struktural.edit', $anggota->id) }}"
                                                         class="btn btn-sm btn-primary">
                                                         <i class="fas fa-pen"></i> Edit
                                                     </a>
-                                                    <form action="{{ route('admin.struktural.destroy', $staf->id) }}"
-                                                        method="POST" onsubmit="return confirm('Hapus staf ini?')">
+                                                    <form action="{{ route('admin.struktural.destroy', $anggota->id) }}"
+                                                        method="POST" onsubmit="return confirm('Hapus anggota ini?')">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-sm btn-danger">
                                                             <i class="fas fa-trash"></i> Hapus
                                                         </button>
                                                     </form>
+
                                                 </div>
                                             </td>
                                         </tr>

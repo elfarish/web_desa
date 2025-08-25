@@ -3,70 +3,101 @@
 @section('title', 'Berita - Desa Pabuaran')
 
 @section('content')
-    <section class="py-5">
-        <div class="container">
-            <h1 class="fw-bold mb-4" data-aos="fade-down">Berita Desa Pabuaran</h1>
-            <div class="row g-4">
-                @php use Illuminate\Support\Str; @endphp
-                @forelse ($berita as $item)
-                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
-                        <div class="card h-100 border-0 shadow-sm berita-card">
-                            {{-- Container untuk thumbnail 16:9 --}}
-                            <div class="thumbnail-16-9">
-                                <img src="{{ asset($item->thumbnail ?? 'images/berita/default.png') }}"
-                                    alt="{{ $item->judul }}">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">{{ $item->judul }}</h5>
-                                <p class="text-muted small mb-1">
-                                    {{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }} |
-                                    {{ $item->views ?? 0 }} views
-                                </p>
-                                <p class="card-text">
-                                    {{ Str::limit($item->excerpt ?? strip_tags($item->konten), 100, '...') }}</p>
-                                <a href="{{ route('berita.show', $item->slug) }}"
-                                    class="btn btn-success btn-sm">Selengkapnya</a>
-                            </div>
-                        </div>
-                    </div>
-                @empty
-                    <p class="text-center">Belum ada berita tersedia.</p>
-                @endforelse
-            </div>
-        </div>
-    </section>
 
-    @push('styles')
+    {{-- Hero Section --}}
+    <section class="position-relative text-center" style="height: 300px; overflow: hidden;">
         <style>
-            /* Efek hover card */
+            .overlay-blur {
+                background: rgba(0, 0, 0, 0.5);
+                backdrop-filter: blur(4px);
+            }
+
             .berita-card {
                 transition: transform 0.3s ease, box-shadow 0.3s ease;
+                border-radius: 12px;
+                overflow: hidden;
             }
 
             .berita-card:hover {
                 transform: translateY(-5px);
-                box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
-                cursor: pointer;
+                box-shadow: 0px 12px 25px rgba(0, 0, 0, 0.2);
             }
 
-            /* Thumbnail 16:9 */
-            .thumbnail-16-9 {
-                position: relative;
-                width: 100%;
-                padding-top: 56.25%;
-                /* 16:9 = 9/16 = 0.5625 */
-                overflow: hidden;
+            .text-shadow {
+                text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
             }
 
-            .thumbnail-16-9 img {
+            .card-badge {
                 position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
+                top: 10px;
+                left: 10px;
+                background-color: #198754;
+                color: #fff;
+                padding: 0.25rem 0.6rem;
+                font-size: 0.75rem;
+                border-radius: 6px;
+                text-transform: uppercase;
+                font-weight: 600;
+            }
+
+            .card-img-top {
+                height: 180px;
                 object-fit: cover;
-                /* agar image tetap proporsional */
             }
         </style>
-    @endpush
+
+        <!-- Background + Blur -->
+        <div class="position-absolute top-0 start-0 w-100 h-100"
+            style="background: url('{{ asset('storage/images/kantor_desa.png') }}') center/cover no-repeat;
+                   filter: blur(3px);
+                   transform: scale(1.1);
+                   z-index: 0;">
+        </div>
+
+        <!-- Overlay gelap -->
+        <div class="position-absolute top-0 start-0 w-100 h-100 overlay-blur" style="z-index: 1;"></div>
+
+        <!-- Konten -->
+        <div class="position-relative text-white d-flex flex-column justify-content-center align-items-center h-100"
+            style="z-index: 2;">
+            <h1 class="fw-bold display-5 text-shadow">Berita Desa</h1>
+            <p class="lead text-warning">Informasi terbaru dan kegiatan Desa Pabuaran</p>
+        </div>
+    </section>
+
+    {{-- Berita Cards --}}
+    <section class="py-5">
+        <div class="container">
+            <h2 class="fw-bold mb-4">Berita Desa Pabuaran</h2>
+            <div class="row g-4">
+                @foreach ($berita as $item)
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="card berita-card position-relative h-100 shadow-sm">
+                            @if ($item->gambar)
+                                <img src="{{ asset('storage/' . $item->gambar) }}" class="card-img-top"
+                                    alt="{{ $item->judul }}">
+                            @endif
+                            <div class="card-badge">{{ $item->kategori }}</div>
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title fw-bold">{{ $item->judul }}</h5>
+                                <p class="card-text flex-grow-1">{{ $item->ringkasan }}</p>
+                                <a href="{{ route('user.berita.show', $item->slug) }}"
+                                    class="btn btn-success btn-sm mt-auto">Baca Selengkapnya</a>
+                            </div>
+                            <div class="card-footer text-muted d-flex justify-content-between small">
+                                <span>{{ \Carbon\Carbon::parse($item->tanggal)->translatedFormat('d F Y') }}</span>
+                                <span>{{ $item->penulis }}</span>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
+            {{-- Pagination --}}
+            <div class="mt-4 d-flex justify-content-center">
+                {{ $berita->links() }}
+            </div>
+        </div>
+    </section>
+
 @endsection

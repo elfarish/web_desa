@@ -11,12 +11,6 @@ class StrukturalController extends Controller
 
     public function index()
     {
-        $kepengurusan = Struktural::whereNotIn('jabatan', ['Ketua', 'Wakil Ketua', 'Sekretaris', 'Ketua Bidang', 'Anggota'])
-            ->latest()->paginate(10, ['*'], 'kepengurusan_page');
-
-        $bpd = Struktural::whereIn('jabatan', ['Ketua', 'Wakil Ketua', 'Sekretaris', 'Ketua Bidang', 'Anggota'])
-            ->latest()->paginate(10, ['*'], 'bpd_page');
-
         return view('admin.struktural.index', compact('kepengurusan', 'bpd'));
     }
 
@@ -35,14 +29,13 @@ class StrukturalController extends Controller
 
     public function lembagaBPD()
     {
-        $bpd = Struktural::whereIn('jabatan', [
-            'Ketua',
-            'Wakil Ketua',
-            'Sekretaris',
-            'Ketua Bidang',
-            'Anggota'
-        ])->get();
+        $ketua = Struktural::where('jabatan', 'Ketua BPD')->first();
+        $wakil = Struktural::where('jabatan', 'Wakil Ketua BPD')->first();
+        $sekretaris = Struktural::where('jabatan', 'Sekretaris BPD')->first();
 
-        return view('user.struktural.lembaga_bpd', compact('bpd'));
+        $ketuaBidang = Struktural::where('jabatan', 'Ketua Bidang BPD')->get();
+        $anggota = Struktural::where('jabatan', 'Anggota BPD')->get();
+
+        return view('user.struktural.lembaga_bpd', compact('ketua', 'wakil', 'sekretaris', 'ketuaBidang', 'anggota'));
     }
 }
