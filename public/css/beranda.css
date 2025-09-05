@@ -1,0 +1,100 @@
+/* =========================
+   Hero Section & Carousel
+========================= */
+.hero-section {
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    filter: brightness(40%);
+}
+
+.carousel-caption {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.carousel-caption h1,
+.carousel-caption p {
+    color: #fff;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+.carousel-caption .btn-warning {
+    font-weight: 600;
+}
+
+/* =========================
+   Sambutan Kepala Desa
+========================= */
+#profil {
+    padding-top: 120px;
+    padding-bottom: 80px; /* tetap ada jarak bawah */
+}
+
+@media (min-width: 768px) {
+    #profil {
+        padding-bottom: 120px; /* lebih besar di desktop */
+    }
+}
+
+#profil img {
+    max-height: 300px;
+    object-fit: cover;
+}
+
+#profil {
+    min-height: 100vh; /* full height viewport */
+    padding-top: 100px; /* jarak atas */
+    padding-bottom: 80px; /* jarak bawah */
+    display: flex;
+    align-items: center; /* vertikal center konten */
+}
+
+@media (min-width: 768px) {
+    #profil {
+        padding-bottom: 120px; /* jarak bawah lebih besar di desktop */
+    }
+}
+
+#profil img {
+    max-height: 300px;
+    object-fit: cover;
+}
+
+/* =========================
+   Paragraf Sambutan Kepala Desa
+========================= */
+#profil p {
+    margin-bottom: 1.5rem; /* jarak antar paragraf */
+    line-height: 2; /* jarak baris agar mudah dibaca */
+}
+
+@media (max-width: 768px) {
+    #profil p {
+        margin-bottom: 1.2rem; /* jarak lebih kecil di mobile */
+    }
+}
+
+/* Animasi fade & slide dari bawah */
+.hero-animate {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.hero-animate.show {
+    opacity: 1;
+    transform: translateY(0);
+}

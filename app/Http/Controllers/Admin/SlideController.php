@@ -1,0 +1,91 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\Slide;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+
+class SlideController extends Controller
+{
+    public function index()
+    {
+        $slides = Slide::all();
+        return view('admin.beranda.slide_foto.slide', compact('slides'));
+    }
+
+    public function create()
+    {
+        return view('admin.beranda.slide_foto.create');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'gambar' => 'required|image|max:5120', // max 5MB
+            'is_active' => 'required|boolean',
+        ]);
+
+        if ($request->hasFile('gambar')) {
+            $file = $request->file('gambar');
+            $filename = time() . '_' . Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('slide', $filename, 'public');
+        } else {
+            $path = null;
+        }
+
+        Slide::create([
+            'gambar' => $path,
+            'is_active' => $request->is_active,
+        ]);
+
+        return redirect()->route('admin.beranda.slide.index')
+            ->with('success', 'Slide berhasil ditambahkan.');
+    }
+
+    public function edit(Slide $slide)
+    {
+        return view('admin.beranda.slide_foto.edit', compact('slide'));
+    }
+
+    public function update(Request $request, Slide $slide)
+    {
+        $request->validate([
+            'gambar' => 'nullable|image|max:5120', // max 5MB
+            'is_active' => 'required|boolean',
+        ]);
+
+        if ($request->hasFile('gambar')) {
+            // Hapus file lama
+            if ($slide->gambar && Storage::disk('public')->exists($slide->gambar)) {
+                Storage::disk('public')->delete($slide->gambar);
+            }
+
+            $file = $request->file('gambar');
+            $filename = time() . '_' . Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('slide', $filename, 'public');
+
+            $slide->gambar = $path;
+        }
+
+        $slide->is_active = $request->is_active;
+        $slide->save();
+
+        return redirect()->route('admin.beranda.slide.index')
+            ->with('success', 'Slide berhasil diupdate.');
+    }
+
+    public function destroy(Slide $slide)
+    {
+        if ($slide->gambar && Storage::disk('public')->exists($slide->gambar)) {
+            Storage::disk('public')->delete($slide->gambar);
+        }
+
+        $slide->delete();
+
+        return redirect()->route('admin.beranda.slide.index')
+            ->with('success', 'Slide berhasil dihapus.');
+    }
+}
