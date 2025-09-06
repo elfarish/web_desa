@@ -30,7 +30,7 @@
                 <div class="col-sm-6 col-md-4 col-lg-3">
                     <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden hover-card">
                         <div class="position-relative">
-                            <img src="{{ asset('storage/' . $foto->gambar) }}" class="card-img-top"
+                            <img src="{{ asset( $foto->gambar) }}" class="card-img-top"
                                 alt="{{ $foto->judul ?? 'Foto Galeri' }}" style="height: 220px; object-fit: cover;">
                         </div>
                         <div class="card-body">

@@ -2,32 +2,17 @@
 
 @section('title', 'Potensi Desa - Desa Pabuaran')
 
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/beranda.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+@endpush
+
 @section('content')
     {{-- Hero Section --}}
     <section class="position-relative text-center" style="height: 300px; overflow: hidden;">
-        <style>
-            .overlay-blur {
-                background: rgba(0, 0, 0, 0.5);
-                backdrop-filter: blur(4px);
-            }
-
-            .potensi-card {
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
-            }
-
-            .potensi-card:hover {
-                transform: translateY(-5px);
-                box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
-            }
-
-            .text-shadow {
-                text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
-            }
-        </style>
-
         <!-- Background + Blur -->
         <div class="position-absolute top-0 start-0 w-100 h-100"
-            style="background: url('{{ asset('storage/images/kantor_desa.png') }}') center/cover no-repeat;
+            style="background: url('{{ asset('images/kantor_desa.png') }}') center/cover no-repeat;
                    filter: blur(3px);
                    transform: scale(1.1);
                    z-index: 0;">
@@ -81,10 +66,4 @@
             });
         </script>
     @endpush
-
 @endsection
-
-@push('styles')
-    {{-- Bootstrap Icons --}}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-@endpush

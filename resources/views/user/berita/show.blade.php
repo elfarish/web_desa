@@ -5,7 +5,6 @@
 @section('content')
     <section class="py-5 bg-light">
         <div class="container">
-
             {{-- Breadcrumb --}}
             <nav aria-label="breadcrumb" class="mb-4">
                 <ol class="breadcrumb">
@@ -24,13 +23,11 @@
                 </p>
             </div>
 
-            {{-- Share Buttons Stylish dengan Kalimat Ajakan --}}
+            {{-- Share Buttons --}}
             <div class="my-4 d-flex justify-content-center gap-3 flex-wrap">
                 @php
                     $url = request()->fullUrl();
                     $title = $berita->judul;
-
-                    // Pesan share lebih rapi tanpa karakter bermasalah
                     $message = "Baca berita terbaru di Desa Pabuaran: \"$title\". Klik di sini untuk detail: $url";
 
                     $whatsappUrl = 'https://wa.me/?text=' . rawurlencode($message);
@@ -39,34 +36,19 @@
                     $facebookUrl = 'https://www.facebook.com/sharer/sharer.php?u=' . rawurlencode($url);
                 @endphp
 
-                {{-- WhatsApp --}}
-                <a href="{{ $whatsappUrl }}" target="_blank" class="btn btn-success btn-lg rounded-circle"
-                    data-bs-toggle="tooltip" data-bs-placement="top" title="Bagikan ke WhatsApp">
+                <a href="{{ $whatsappUrl }}" target="_blank" class="btn btn-success btn-lg rounded-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="Bagikan ke WhatsApp">
                     <i class="bi bi-whatsapp fs-4"></i>
                 </a>
-
-                {{-- Facebook --}}
-                <a href="{{ $facebookUrl }}" target="_blank" class="btn btn-primary btn-lg rounded-circle"
-                    data-bs-toggle="tooltip" data-bs-placement="top" title="Bagikan ke Facebook">
+                <a href="{{ $facebookUrl }}" target="_blank" class="btn btn-primary btn-lg rounded-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="Bagikan ke Facebook">
                     <i class="bi bi-facebook fs-4"></i>
                 </a>
-
-                {{-- Twitter --}}
-                <a href="{{ $twitterUrl }}" target="_blank" class="btn btn-info btn-lg rounded-circle text-white"
-                    data-bs-toggle="tooltip" data-bs-placement="top" title="Bagikan ke Twitter">
+                <a href="{{ $twitterUrl }}" target="_blank" class="btn btn-info btn-lg rounded-circle text-white" data-bs-toggle="tooltip" data-bs-placement="top" title="Bagikan ke Twitter">
                     <i class="bi bi-twitter fs-4"></i>
                 </a>
-
-                {{-- LinkedIn --}}
-                <a href="{{ $linkedinUrl }}" target="_blank" class="btn btn-secondary btn-lg rounded-circle"
-                    data-bs-toggle="tooltip" data-bs-placement="top" title="Bagikan ke LinkedIn">
+                <a href="{{ $linkedinUrl }}" target="_blank" class="btn btn-secondary btn-lg rounded-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="Bagikan ke LinkedIn">
                     <i class="bi bi-linkedin fs-4"></i>
                 </a>
-
-                {{-- Copy Link --}}
-                <button onclick="navigator.clipboard.writeText('{{ $url }}'); alert('Link disalin!');"
-                    class="btn btn-outline-dark btn-lg rounded-circle" data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Salin Link">
+                <button onclick="navigator.clipboard.writeText('{{ $url }}'); alert('Link disalin!');" class="btn btn-outline-dark btn-lg rounded-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="Salin Link">
                     <i class="bi bi-link-45deg fs-4"></i>
                 </button>
             </div>
@@ -81,16 +63,12 @@
                 </script>
             @endpush
 
-
-
             {{-- Gambar utama --}}
             @if ($berita->gambar)
                 <div class="mb-4 text-center">
-                    <img src="{{ asset('storage/' . $berita->gambar) }}" class="img-fluid rounded shadow-sm"
-                        alt="{{ $berita->judul }}" style="max-height: 500px; width: auto; object-fit: cover;">
+                    <img src="{{ asset($berita->gambar) }}" class="img-fluid rounded shadow-sm" alt="{{ $berita->judul }}" style="max-height: 500px; width: auto; object-fit: cover;">
                 </div>
             @endif
-
 
             {{-- Isi Berita --}}
             <div class="card p-4 shadow-sm mb-4">
@@ -99,9 +77,7 @@
 
             {{-- Kembali --}}
             <div class="text-center">
-                <a href="{{ route('user.berita.index') }}" class="btn btn-primary">
-                    &larr; Kembali ke Berita
-                </a>
+                <a href="{{ route('user.berita.index') }}" class="btn btn-primary">&larr; Kembali ke Berita</a>
             </div>
         </div>
     </section>
