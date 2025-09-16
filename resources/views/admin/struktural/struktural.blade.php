@@ -37,7 +37,7 @@
                             <tr>
                                 <td class="align-middle">
                                     @if ($item->foto)
-                                        <img src="{{ asset('storage/' . $item->foto) }}" class="img-thumbnail"
+                                        <img src="{{ Storage::url($item->foto) }}" alt="{{ $item->nama }}" class="img-thumbnail"
                                             style="max-width:80px;">
                                     @else
                                         <span class="text-muted">-</span>
@@ -98,7 +98,7 @@
                             <tr>
                                 <td class="align-middle">
                                     @if ($item->foto)
-                                        <img src="{{ Storage::url($item->gambar) }}" alt="{{ $item->judul }}"
+                                        <img src="{{ Storage::url($item->foto) }}" alt="{{ $item->nama }}"
                                             class="img-thumbnail" style="max-width: 80px;">
                                     @else
                                         <span class="text-muted">-</span>

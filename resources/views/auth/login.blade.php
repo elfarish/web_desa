@@ -6,7 +6,7 @@
     <div class="card login-card">
         <div class="card-body text-center">
             <div class="login-header mb-4">
-                <img src="{{ asset('storage/assets/logo.svg') }}" alt="Logo Desa" class="mb-3"
+                <img src="{{ asset('logo.svg') }}" alt="Logo Desa" class="mb-3"
                     style="width:100px; height:auto;">
                 <h4 class="fw-bold text-success">Login Admin</h4>
             </div>

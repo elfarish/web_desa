@@ -19,8 +19,8 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <!-- Favicon -->
-    <link rel="icon" href="{{ asset('storage/images/logo.svg') }}" type="image/svg+xml">
-    <link rel="shortcut icon" href="{{ asset('storage/images/logo.svg') }}" type="image/svg+xml">
+    <link rel="icon" href="{{ asset('logo.svg') }}" type="image/svg+xml">
+    <link rel="shortcut icon" href="{{ asset('logo.svg') }}" type="image/svg+xml">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
@@ -44,7 +44,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-success shadow-sm sticky-top">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="{{ route('user.beranda') }}">
-                <img src="{{ asset('storage/assets/logo.svg') }}" alt="Logo Desa" width="36" height="36"
+                <img src="{{ asset('logo.svg') }}" alt="Logo Desa" width="36" height="36"
                     class="me-2 rounded-circle">
                 <span class="fw-bold">Desa Pabuaran</span>
             </a>
