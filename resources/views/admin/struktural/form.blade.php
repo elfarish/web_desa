@@ -106,7 +106,7 @@
                         @if (isset($data) && $data->gambar)
                             <div class="mt-2">
                                 <small class="text-muted d-block">Gambar saat ini:</small>
-                                <img src="{{ asset('storage/' . $data->gambar) }}" width="150"
+                                <img src="{{ asset( $data->gambar) }}" width="150"
                                     class="rounded shadow-sm mt-1">
                             </div>
                         @endif

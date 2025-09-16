@@ -2,19 +2,20 @@
 
 @section('title', 'Struktur Lembaga BPD - Desa Pabuaran')
 
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/beranda.css') }}">
+@endpush
+
 @section('content')
     {{-- Hero Section --}}
     <section class="position-relative text-center" style="height: 250px; overflow: hidden;">
-
         <!-- Background + Blur -->
         <div class="position-absolute top-0 start-0 w-100 h-100"
-            style="background: url('{{ asset('storage/images/kantor_desa.png') }}') center/cover no-repeat;
+            style="background: url('{{ asset('images/kantor_desa.png') }}') center/cover no-repeat;
                filter: blur(3px); transform: scale(1.1); z-index:0;">
         </div>
-
         <!-- Overlay gelap -->
         <div class="position-absolute top-0 start-0 w-100 h-100" style="background: rgba(0,0,0,0.5); z-index:1;"></div>
-
         <!-- Konten -->
         <div class="position-relative text-white d-flex flex-column justify-content-center align-items-center h-100"
             style="z-index:2;">
@@ -24,54 +25,11 @@
     </section>
 
     <div class="container my-5">
-
-        <style>
-            .person-card {
-                padding: 10px;
-                text-align: center;
-            }
-
-            .person-card img {
-                width: 100%;
-                aspect-ratio: 4 / 5;
-                /* rasio 4:5 */
-                object-fit: cover;
-                border-radius: 8px;
-                box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
-                transition: transform 0.3s;
-            }
-
-            .person-card img:hover {
-                transform: scale(1.05);
-            }
-
-            .person-card h6,
-            .person-card h5 {
-                margin-top: 10px;
-                margin-bottom: 0;
-            }
-
-            .person-card small {
-                display: block;
-                color: #6c757d;
-            }
-
-            /* Responsive untuk HP: card full width */
-            @media (max-width: 576px) {
-                .person-card img {
-                    aspect-ratio: auto;
-                    max-width: 80%;
-                }
-            }
-        </style>
-
-
         {{-- Ketua --}}
         @if ($ketua)
             <div class="row justify-content-center mb-4">
                 <div class="col-12 col-sm-6 col-md-3 person-card">
-                    <img src="{{ $ketua->foto ? asset('storage/' . $ketua->foto) : asset('storage/struktural/default_image.png') }}"
-                        alt="{{ $ketua->nama }}">
+                    <img src="{{ $ketua->foto ? asset($ketua->foto) : asset('storage/struktural/default_image.png') }}" alt="{{ $ketua->nama }}">
                     <h5>{{ $ketua->nama }}</h5>
                     <small>{{ $ketua->jabatan }}</small>
                 </div>
@@ -82,16 +40,14 @@
         <div class="row justify-content-center mb-4">
             @if ($wakil)
                 <div class="col-12 col-sm-6 col-md-3 person-card">
-                    <img src="{{ $wakil->foto ? asset('storage/' . $wakil->foto) : asset('storage/struktural/default_image.png') }}"
-                        alt="{{ $wakil->nama }}">
+                    <img src="{{ $wakil->foto ? asset($wakil->foto) : asset('storage/struktural/default_image.png') }}" alt="{{ $wakil->nama }}">
                     <h6>{{ $wakil->nama }}</h6>
                     <small>{{ $wakil->jabatan }}</small>
                 </div>
             @endif
             @if ($sekretaris)
                 <div class="col-12 col-sm-6 col-md-3 person-card">
-                    <img src="{{ $sekretaris->foto ? asset('storage/' . $sekretaris->foto) : asset('storage/struktural/default_image.png') }}"
-                        alt="{{ $sekretaris->nama }}">
+                    <img src="{{ $sekretaris->foto ? asset($sekretaris->foto) : asset('storage/struktural/default_image.png') }}" alt="{{ $sekretaris->nama }}">
                     <h6>{{ $sekretaris->nama }}</h6>
                     <small>{{ $sekretaris->jabatan }}</small>
                 </div>
@@ -104,8 +60,7 @@
             <div class="row justify-content-center mb-4">
                 @foreach ($ketuaBidang as $kb)
                     <div class="col-12 col-sm-6 col-md-3 person-card">
-                        <img src="{{ $kb->foto ? asset('storage/' . $kb->foto) : asset('storage/struktural/default_image.png') }}"
-                            alt="{{ $kb->nama }}">
+                        <img src="{{ $kb->foto ? asset($kb->foto) : asset('storage/struktural/default_image.png') }}" alt="{{ $kb->nama }}">
                         <h6>{{ $kb->nama }}</h6>
                         <small>{{ $kb->jabatan }}</small>
                     </div>
@@ -119,14 +74,12 @@
             <div class="row justify-content-center">
                 @foreach ($anggota as $a)
                     <div class="col-12 col-sm-6 col-md-2 person-card">
-                        <img src="{{ $a->foto ? asset('storage/' . $a->foto) : asset('storage/struktural/default_image.png') }}"
-                            alt="{{ $a->nama }}">
+                        <img src="{{ $a->foto ? asset($a->foto) : asset('storage/struktural/default_image.png') }}" alt="{{ $a->nama }}">
                         <h6>{{ $a->nama }}</h6>
                         <small>{{ $a->jabatan }}</small>
                     </div>
                 @endforeach
             </div>
         @endif
-
     </div>
 @endsection

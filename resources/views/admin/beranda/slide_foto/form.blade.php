@@ -8,7 +8,7 @@
     </div>
     @if (isset($slide) && $slide->gambar)
         <div class="mt-2">
-            <img src="{{ asset('storage/' . $slide->gambar) }}" alt="Slide" style="max-height: 150px;">
+            <img src="{{ asset( $slide->gambar) }}" alt="Slide" style="max-height: 150px;">
         </div>
     @endif
     @error('gambar')

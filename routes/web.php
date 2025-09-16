@@ -35,6 +35,11 @@ use App\Http\Controllers\User\PotensiController as UserPotensiController;
 use App\Http\Controllers\User\LayananController as UserLayananController;
 
 
+// storage link
+Route::get('/link', function () {
+    Artisan::call('storage:link');
+});
+
 // ====================
 // User Routes (Frontend)
 // ====================

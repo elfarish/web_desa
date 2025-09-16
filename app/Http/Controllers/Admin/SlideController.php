@@ -24,7 +24,7 @@ class SlideController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'gambar' => 'required|image|max:5120', // max 5MB
+            'gambar' => 'required|image|mimes:jpeg,jpg,png,gif,webp|max:5120', // max 5MB
             'is_active' => 'required|boolean',
         ]);
 
@@ -53,7 +53,7 @@ class SlideController extends Controller
     public function update(Request $request, Slide $slide)
     {
         $request->validate([
-            'gambar' => 'nullable|image|max:5120', // max 5MB
+            'gambar' => 'nullable|image|mimes:jpeg,jpg,png,gif,webp|max:5120', // max 5MB
             'is_active' => 'required|boolean',
         ]);
 
