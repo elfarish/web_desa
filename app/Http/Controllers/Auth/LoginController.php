@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-
 class LoginController extends Controller
 {
     /**
@@ -30,7 +29,12 @@ class LoginController extends Controller
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
 
-            return redirect()->intended('/admin/dashboard');
+            // Redirect based on user role
+            if (Auth::user()->role === 'admin') {
+                return redirect()->intended(route('admin.dashboard'));
+            }
+
+            return redirect()->intended(route('user.beranda'));
         }
 
         return back()->withErrors([

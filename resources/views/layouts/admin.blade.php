@@ -14,7 +14,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    @vite(['resources/css/admin.css', 'resources/js/admin.js'])
+    @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
+        @vite(['resources/css/admin.css', 'resources/js/admin.js'])
+    @endif
 </head>
 
 <body>

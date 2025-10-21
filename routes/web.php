@@ -1,39 +1,34 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
-
+use App\Http\Controllers\Admin\BeritaController as AdminBeritaController;
+use App\Http\Controllers\Admin\DashboardController;
 // ====================
 // Auth Controllers
 // ====================
-use App\Http\Controllers\Auth\LoginController;
-
+use App\Http\Controllers\Admin\GaleriController;
 // ====================
 // Admin Controllers
 // ====================
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\BerandaController as AdminBerandaController;
-use App\Http\Controllers\Admin\BeritaController as AdminBeritaController;
-use App\Http\Controllers\Admin\GaleriController;
 use App\Http\Controllers\Admin\LayananController as AdminLayananController;
-use App\Http\Controllers\Admin\PengaturanController;
-use App\Http\Controllers\Admin\StrukturalController as AdminStrukturalController;
-use App\Http\Controllers\Admin\PotensiController as AdminPotensiController;
-use App\Http\Controllers\Admin\TamplateSuratController;
 use App\Http\Controllers\Admin\PengajuanProposalController;
-use App\Http\Controllers\Admin\StatistikController;
+use App\Http\Controllers\Admin\PengaturanController;
+use App\Http\Controllers\Admin\PotensiController as AdminPotensiController;
 use App\Http\Controllers\Admin\SlideController;
-
+use App\Http\Controllers\Admin\StatistikController;
+use App\Http\Controllers\Admin\StrukturalController as AdminStrukturalController;
+use App\Http\Controllers\Admin\TamplateSuratController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\User\BerandaController as UserBerandaController;
+use App\Http\Controllers\User\BeritaController as UserBeritaController;
 // ====================
 // User Controllers
 // ====================
-use App\Http\Controllers\User\BerandaController as UserBerandaController;
-use App\Http\Controllers\User\BeritaController as UserBeritaController;
+use App\Http\Controllers\User\LayananController as UserLayananController;
+use App\Http\Controllers\User\PotensiController as UserPotensiController;
 use App\Http\Controllers\User\ProfilController as UserProfilController;
 use App\Http\Controllers\User\StrukturalController as UserStrukturalController;
-use App\Http\Controllers\User\PotensiController as UserPotensiController;
-use App\Http\Controllers\User\LayananController as UserLayananController;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 // storage link
 Route::get('/link', function () {
@@ -80,7 +75,6 @@ Route::prefix('/')->name('user.')->group(function () {
     });
 });
 
-
 // ====================
 // Auth Routes
 // ====================
@@ -88,11 +82,10 @@ Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.post');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-
 // ====================
 // Admin Routes (Backend)
 // ====================
-Route::prefix('admin')->name('admin.')->group(function () {
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
     // Dashboard
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
