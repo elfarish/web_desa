@@ -66,7 +66,7 @@
             {{-- Gambar utama --}}
             @if ($berita->gambar)
                 <div class="mb-4 text-center">
-                    <img src="{{ asset('storage/' + $berita->gambar) }}" class="img-fluid rounded shadow-sm" alt="{{ $berita->judul }}" style="max-height: 500px; width: auto; object-fit: cover;">
+                    <img src="{{ asset('storage/' . $berita->gambar) }}" class="img-fluid rounded shadow-sm" alt="{{ $berita->judul }}" style="max-height: 500px; width: auto; object-fit: cover;">
                 </div>
             @endif
 
