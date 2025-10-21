@@ -29,7 +29,7 @@
                         @forelse($slides as $slide)
                             <tr>
                                 <td>
-                                    <img src="{{ asset( $slide->gambar) }}" alt="Slide" class="img-fluid"
+                                    <img src="{{ asset('storage/'+ $slide->gambar) }}" alt="Slide" class="img-fluid"
                                         style="max-height: 100px;">
                                 </td>
                                 <td>
