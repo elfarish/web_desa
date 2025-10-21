@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\TamplateSurat;
+use App\Models\Visitor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -26,8 +27,9 @@ class TamplateSuratController extends Controller
         }
 
         $templates = $query->latest()->paginate(10)->appends($request->query());
+        $totalVisitors = Visitor::count();
 
-        return view('admin.layanan.tamplate_surat.tamplate_surat', compact('templates'));
+        return view('admin.layanan.tamplate_surat.tamplate_surat', compact('templates', 'totalVisitors'));
     }
 
     public function create()

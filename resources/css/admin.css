@@ -30,7 +30,8 @@ body {
 ======================= */
 #sidebar-wrapper {
     width: 240px;
-    background: #198754; /* hijau desa */
+    background: #198754;
+    /* hijau desa */
     color: #fff;
     transition: all 0.3s;
     display: flex;
@@ -72,12 +73,14 @@ body {
 }
 
 #sidebar-wrapper .list-group-item:hover {
-    background: #157347 !important; /* hijau lebih gelap */
+    background: #157347 !important;
+    /* hijau lebih gelap */
     padding-left: 24px;
 }
 
 #sidebar-wrapper .list-group-item.active {
-    background-color: #146c43; /* hijau tua */
+    background-color: #146c43;
+    /* hijau tua */
     color: #fff;
     font-weight: 600;
     border: none;
@@ -91,7 +94,8 @@ body {
 }
 
 .sidebar .dropdown-toggle::after {
-    display: none; /* hilangkan arrow bootstrap */
+    display: none;
+    /* hilangkan arrow bootstrap */
 }
 
 .sidebar .dropdown-indicator {
@@ -146,7 +150,8 @@ body {
     font-size: 2.2rem;
     margin-bottom: 12px;
     display: block;
-    color: #198754; /* default hijau */
+    color: #198754;
+    /* default hijau */
 }
 
 .card-admin h5 {
@@ -170,13 +175,16 @@ body {
 
 /* Warna ikon sesuai kategori */
 .card-admin.berita i {
-    color: #0d6efd; /* biru */
+    color: #0d6efd;
+    /* biru */
 }
 
 .card-admin.layanan i {
-    color: #198754; /* hijau */
+    color: #198754;
+    /* hijau */
 }
 
 .card-admin.galeri i {
-    color: #ffc107; /* kuning */
+    color: #ffc107;
+    /* kuning */
 }

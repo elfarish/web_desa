@@ -1,25 +1,22 @@
 @extends('layouts.admin')
 
+@section('title', 'Dashboard Admin')
+
 @section('content')
     <div class="container-fluid">
+        <h1 class="mb-4">Dashboard Admin</h1>
+
+        {{-- Flash Message --}}
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+                <i class="bi bi-check-circle me-2"></i> {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        @endif
+
         <div class="row g-4">
 
             {{-- Semua fitur placeholder --}}
-            @php
-                $features = [
-                    ['icon' => 'bi-newspaper', 'title' => 'Berita', 'desc' => 'Kelola berita desa.'],
-                    ['icon' => 'bi-people', 'title' => 'Layanan', 'desc' => 'Kelola layanan masyarakat.'],
-                    ['icon' => 'bi-images', 'title' => 'Galeri', 'desc' => 'Kelola galeri foto desa.'],
-                    [
-                        'icon' => 'bi-bar-chart-line',
-                        'title' => 'Statistik',
-                        'desc' => 'Fitur masih dalam pengembangan.',
-                    ],
-                    ['icon' => 'bi-people', 'title' => 'Pengunjung', 'desc' => 'Fitur masih dalam pengembangan.'],
-                    ['icon' => 'bi-tools', 'title' => 'Lainnya', 'desc' => 'Fitur masih dalam pengembangan.'],
-                ];
-            @endphp
-
             @foreach ($features as $feature)
                 <div class="col-md-4 col-sm-6">
                     <div class="card-admin shadow-sm text-center p-4 h-100 bg-light border-dashed">
@@ -33,24 +30,4 @@
 
         </div>
     </div>
-
-    <style>
-        /* Card placeholder border dashed untuk bedakan fitur belum aktif */
-        .border-dashed {
-            border: 2px dashed #ccc !important;
-            background-color: #f8f9fa;
-        }
-
-        .card-admin h5 {
-            font-weight: 600;
-        }
-
-        .card-admin p {
-            font-size: 0.9rem;
-        }
-
-        .card-admin i {
-            display: block;
-        }
-    </style>
 @endsection

@@ -36,6 +36,8 @@ class BeritaController extends Controller
             ->with('user:id,name') // Only load necessary user data
             ->firstOrFail();
 
+        $berita->increment('view_count');
+
         return view('user.berita.show', compact('berita'));
     }
 }

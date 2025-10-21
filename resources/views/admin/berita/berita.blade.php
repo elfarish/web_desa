@@ -51,6 +51,7 @@
                             <th>Status</th>
                             <th>Tanggal</th>
                             <th>Penulis</th>
+                            <th>Dilihat</th>
                             <th width="150">Aksi</th>
                         </tr>
                     </thead>
@@ -90,6 +91,7 @@
                                     {{ $item->formatted_tanggal }}
                                 </td>
                                 <td>{{ $item->user->name ?? 'Admin' }}</td>
+                                <td>{{ $item->view_count ?? 0 }}</td>
                                 <td>
                                     <a href="{{ route('admin.berita.show', $item->slug) }}" class="btn btn-info btn-sm"
                                         title="Lihat">
@@ -111,7 +113,7 @@
                             </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7" class="text-center text-muted">Belum ada berita</td>
+                                    <td colspan="8" class="text-center text-muted">Belum ada berita</td>
                                 </tr>
                             @endforelse
                         </tbody>

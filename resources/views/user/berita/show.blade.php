@@ -19,7 +19,8 @@
                 <h1 class="fw-bold">{{ $berita->judul }}</h1>
                 <p class="text-muted">
                     {{ \Carbon\Carbon::parse($berita->tanggal)->translatedFormat('d F Y') }} |
-                    {{ $berita->penulis }}
+                    {{ $berita->penulis }} |
+                    Dilihat {{ $berita->view_count }} kali
                 </p>
             </div>
 
