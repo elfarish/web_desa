@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use App\Models\User;
 
 class Berita extends Model
 {
@@ -64,7 +63,6 @@ class Berita extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-
     /**
      * Helper untuk buat slug unik.
      */
@@ -80,7 +78,7 @@ class Berita extends Model
         }
 
         while ($query->exists()) {
-            $slug = $original . '-' . $count++;
+            $slug = $original.'-'.$count++;
             $query = static::where('slug', $slug);
             if ($ignoreId) {
                 $query->where('id', '!=', $ignoreId);
@@ -88,5 +86,21 @@ class Berita extends Model
         }
 
         return $slug;
+    }
+
+    /**
+     * Accessor for the gambar field to return full URL
+     */
+    public function getGambarUrlAttribute()
+    {
+        return $this->gambar ? asset('storage/'.$this->gambar) : null;
+    }
+
+    /**
+     * Accessor to get formatted date
+     */
+    public function getFormattedTanggalAttribute()
+    {
+        return $this->tanggal ? $this->tanggal->format('d M Y') : null;
     }
 }

@@ -3,15 +3,16 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Struktural;
 
 class StrukturalController extends Controller
 {
-
     public function index()
     {
-        return view('admin.struktural.index', compact('kepengurusan', 'bpd'));
+        $kepengurusan = Struktural::where('kategori', 'kepengurusan')->orderBy('jabatan')->get();
+        $bpd = Struktural::where('kategori', 'bpd')->orderBy('jabatan')->get();
+
+        return view('user.struktural.index', compact('kepengurusan', 'bpd'));
     }
 
     public function kepengurusan()

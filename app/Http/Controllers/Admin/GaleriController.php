@@ -3,19 +3,33 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Galeri;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class GaleriController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->authorizeResource(Galeri::class, 'galeri');
+    }
+
     /**
      * Menampilkan daftar galeri.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $galeri = Galeri::latest()->paginate(12);
+        $query = Galeri::query();
+
+        // Add search functionality
+        if ($request->has('search') && $request->search) {
+            $query->where('judul', 'like', '%'.$request->search.'%');
+        }
+
+        $galeri = $query->latest()->paginate(12)->appends($request->query());
+
         return view('admin.galeri.galeri', compact('galeri'));
     }
 
@@ -41,7 +55,7 @@ class GaleriController extends Controller
         $file = $request->file('gambar');
         $namaAsli = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         $slugNama = Str::slug($validated['judul'] ?? $namaAsli);
-        $namaFile = time() . '_' . $slugNama . '.' . $file->getClientOriginalExtension();
+        $namaFile = time().'_'.$slugNama.'.'.$file->getClientOriginalExtension();
 
         // simpan ke folder galeri
         $path = $file->storeAs('galeri', $namaFile, 'public');
@@ -54,7 +68,6 @@ class GaleriController extends Controller
         return redirect()->route('admin.galeri.index')
             ->with('success', 'Foto berhasil diupload.');
     }
-
 
     /**
      * Tampilkan form untuk mengedit galeri.
@@ -83,7 +96,7 @@ class GaleriController extends Controller
             $file = $request->file('gambar');
             $namaAsli = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
             $slugNama = Str::slug($validated['judul'] ?? $namaAsli);
-            $namaFile = time() . '_' . $slugNama . '.' . $file->getClientOriginalExtension();
+            $namaFile = time().'_'.$slugNama.'.'.$file->getClientOriginalExtension();
 
             $galeri->gambar = $file->storeAs('galeri', $namaFile, 'public');
         }
@@ -94,7 +107,6 @@ class GaleriController extends Controller
         return redirect()->route('admin.galeri.index')
             ->with('success', 'Foto berhasil diperbarui.');
     }
-
 
     /**
      * Hapus galeri beserta file gambarnya.

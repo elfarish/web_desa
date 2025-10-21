@@ -9,6 +9,22 @@
                 <i class="bi bi-file-earmark-text me-2"></i> Daftar Template Surat
             </h2>
 
+            {{-- Search Form --}}
+            <div class="mb-4">
+                <form class="d-flex justify-content-center" style="max-width: 400px; margin: 0 auto;" onsubmit="return filterTemplateForm(event)">
+                    <input type="text" class="form-control" placeholder="Cari template surat..."
+                           value="{{ request('search') }}" name="search" id="search-input">
+                    <button class="btn btn-primary ms-2" type="submit">
+                        <i class="bi bi-search"></i> Cari
+                    </button>
+                    @if(request('search'))
+                        <button class="btn btn-outline-secondary ms-2" type="button" onclick="clearSearch()">
+                            <i class="bi bi-x"></i> Hapus
+                        </button>
+                    @endif
+                </form>
+            </div>
+
             <div class="row g-4">
                 @forelse ($templates as $template)
                     @php
@@ -42,7 +58,7 @@
                                 </p>
                                 <div class="d-grid gap-2 mt-auto">
                                     @if ($fileExt === 'pdf')
-                                        <a href="{{ asset('storage/' . $template->file_path) }}" target="_blank" class="btn btn-outline-primary rounded-pill">
+                                        <a href="{{ $template->file_path_url }}" target="_blank" class="btn btn-outline-primary rounded-pill">
                                             <i class="bi bi-eye"></i> Preview
                                         </a>
                                     @endif
@@ -59,6 +75,34 @@
                     </div>
                 @endforelse
             </div>
+
+            {{-- Pagination --}}
+            <div class="mt-4 d-flex justify-content-center">
+                {{ $templates->appends(request()->query())->links() }}
+            </div>
         </div>
     </section>
+
+    <script>
+        function filterTemplateForm(event) {
+            event.preventDefault();
+            const search = document.getElementById('search-input').value;
+            const url = new URL(window.location);
+            if (search) {
+                url.searchParams.set('search', search);
+            } else {
+                url.searchParams.delete('search');
+            }
+            url.searchParams.delete('page'); // Reset page when searching
+            window.location.href = url.toString();
+            return false;
+        }
+
+        function clearSearch() {
+            const url = new URL(window.location);
+            url.searchParams.delete('search');
+            url.searchParams.delete('page');
+            window.location.href = url.toString();
+        }
+    </script>
 @endsection

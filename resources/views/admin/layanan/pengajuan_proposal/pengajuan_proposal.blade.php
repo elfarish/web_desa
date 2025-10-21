@@ -19,6 +19,19 @@
         </a>
 
         <div class="card shadow-sm">
+            <div class="card-header d-flex flex-wrap justify-content-between align-items-center">
+                <h5 class="mb-2 mb-md-0">Daftar Pengajuan Proposal</h5>
+                <form class="d-flex me-2" style="min-width: 250px;" onsubmit="return filterProposalForm(event)">
+                    <input type="text" class="form-control" placeholder="Cari pengajuan..."
+                           value="{{ request('search') }}" name="search" id="search-input">
+                    <button class="btn btn-outline-secondary" type="submit">
+                        <i class="bi bi-search"></i>
+                    </button>
+                    <button class="btn btn-outline-secondary" type="button" onclick="clearSearch()">
+                        <i class="bi bi-x"></i>
+                    </button>
+                </form>
+            </div>
             <div class="card-body table-responsive">
                 <table class="table table-bordered table-striped text-center align-middle">
                     <thead class="table-light">
@@ -56,5 +69,28 @@
                 </table>
             </div>
         </div>
+
+        <script>
+            function filterProposalForm(event) {
+                event.preventDefault();
+                const search = document.getElementById('search-input').value;
+                const url = new URL(window.location);
+                if (search) {
+                    url.searchParams.set('search', search);
+                } else {
+                    url.searchParams.delete('search');
+                }
+                url.searchParams.delete('page'); // Reset page when searching
+                window.location.href = url.toString();
+                return false;
+            }
+
+            function clearSearch() {
+                const url = new URL(window.location);
+                url.searchParams.delete('search');
+                url.searchParams.delete('page');
+                window.location.href = url.toString();
+            }
+        </script>
     </div>
 @endsection

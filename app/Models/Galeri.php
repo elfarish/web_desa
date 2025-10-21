@@ -12,4 +12,12 @@ class Galeri extends Model
         'judul',
         'gambar',
     ];
+
+    /**
+     * Accessor for the gambar field to return full URL
+     */
+    public function getGambarUrlAttribute()
+    {
+        return $this->gambar ? asset('storage/'.$this->gambar) : null;
+    }
 }

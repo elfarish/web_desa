@@ -3,15 +3,30 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\TamplateSurat;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class TamplateSuratController extends Controller
 {
-    public function index()
+    public function __construct()
     {
-        $templates = TamplateSurat::latest()->get();
+        $this->middleware('auth');
+        $this->authorizeResource(TamplateSurat::class, 'tamplateSurat');
+    }
+
+    public function index(Request $request)
+    {
+        $query = TamplateSurat::query();
+
+        // Add search functionality
+        if ($request->has('search') && $request->search) {
+            $query->where('nama_template', 'like', '%'.$request->search.'%')
+                ->orWhere('kategori', 'like', '%'.$request->search.'%');
+        }
+
+        $templates = $query->latest()->paginate(10)->appends($request->query());
+
         return view('admin.layanan.tamplate_surat.tamplate_surat', compact('templates'));
     }
 
@@ -24,16 +39,16 @@ class TamplateSuratController extends Controller
     {
         $request->validate([
             'nama_template' => 'required|string|max:255',
-            'kategori'      => 'nullable|string',
-            'deskripsi'     => 'nullable|string',
-            'file'          => 'required|file|mimes:pdf,doc,docx',
-            'file_galeri'   => 'nullable|string', // opsional pilih dari galeri
+            'kategori' => 'nullable|string',
+            'deskripsi' => 'nullable|string',
+            'file' => 'required|file|mimes:pdf,doc,docx',
+            'file_galeri' => 'nullable|string', // opsional pilih dari galeri
         ]);
 
         // Jika upload manual
         if ($request->hasFile('file')) {
             $file = $request->file('file');
-            $fileName = time() . '_' . strtolower(str_replace(' ', '_', $request->nama_template)) . '.' . $file->getClientOriginalExtension();
+            $fileName = time().'_'.strtolower(str_replace(' ', '_', $request->nama_template)).'.'.$file->getClientOriginalExtension();
             $filePath = $file->storeAs('tamplate_surat', $fileName, 'public');
         }
         // Jika pilih dari galeri
@@ -45,9 +60,9 @@ class TamplateSuratController extends Controller
 
         TamplateSurat::create([
             'nama_template' => $request->nama_template,
-            'kategori'      => $request->kategori,
-            'deskripsi'     => $request->deskripsi,
-            'file_path'     => $filePath,
+            'kategori' => $request->kategori,
+            'deskripsi' => $request->deskripsi,
+            'file_path' => $filePath,
         ]);
 
         return redirect()->route('admin.layanan.tamplate_surat.index')->with('success', 'Tamplate berhasil ditambahkan.');
@@ -62,10 +77,10 @@ class TamplateSuratController extends Controller
     {
         $request->validate([
             'nama_template' => 'required|string|max:255',
-            'kategori'      => 'nullable|string',
-            'deskripsi'     => 'nullable|string',
-            'file'          => 'nullable|file|mimes:pdf,doc,docx',
-            'file_galeri'   => 'nullable|string',
+            'kategori' => 'nullable|string',
+            'deskripsi' => 'nullable|string',
+            'file' => 'nullable|file|mimes:pdf,doc,docx',
+            'file_galeri' => 'nullable|string',
         ]);
 
         $filePath = $tamplateSurat->file_path;
@@ -75,7 +90,7 @@ class TamplateSuratController extends Controller
                 Storage::disk('public')->delete($filePath);
             }
             $file = $request->file('file');
-            $fileName = time() . '_' . strtolower(str_replace(' ', '_', $request->nama_template)) . '.' . $file->getClientOriginalExtension();
+            $fileName = time().'_'.strtolower(str_replace(' ', '_', $request->nama_template)).'.'.$file->getClientOriginalExtension();
             $filePath = $file->storeAs('tamplate_surat', $fileName, 'public');
         } elseif ($request->filled('file_galeri')) {
             if ($filePath && Storage::disk('public')->exists($filePath)) {
@@ -86,9 +101,9 @@ class TamplateSuratController extends Controller
 
         $tamplateSurat->update([
             'nama_template' => $request->nama_template,
-            'kategori'      => $request->kategori,
-            'deskripsi'     => $request->deskripsi,
-            'file_path'     => $filePath,
+            'kategori' => $request->kategori,
+            'deskripsi' => $request->deskripsi,
+            'file_path' => $filePath,
         ]);
 
         return redirect()->route('admin.layanan.tamplate_surat.index')->with('success', 'Template berhasil diperbarui.');
@@ -107,7 +122,7 @@ class TamplateSuratController extends Controller
     public function download(TamplateSurat $tamplateSurat)
     {
         if ($tamplateSurat->file_path && Storage::disk('public')->exists($tamplateSurat->file_path)) {
-            return response()->download(storage_path('app/public/' . $tamplateSurat->file_path));
+            return response()->download(storage_path('app/public/'.$tamplateSurat->file_path));
         }
 
         return redirect()->back()->with('error', 'File tidak ditemukan.');

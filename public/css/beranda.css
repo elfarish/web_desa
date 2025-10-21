@@ -2,7 +2,6 @@
    Hero Section & Carousel
 ========================= */
 .hero-section {
-    height: 100vh;
     position: relative;
     overflow: hidden;
 }
@@ -40,12 +39,14 @@
 ========================= */
 #profil {
     padding-top: 120px;
-    padding-bottom: 80px; /* tetap ada jarak bawah */
+    padding-bottom: 80px;
+    /* tetap ada jarak bawah */
 }
 
 @media (min-width: 768px) {
     #profil {
-        padding-bottom: 120px; /* lebih besar di desktop */
+        padding-bottom: 120px;
+        /* lebih besar di desktop */
     }
 }
 
@@ -55,16 +56,21 @@
 }
 
 #profil {
-    min-height: 100vh; /* full height viewport */
-    padding-top: 100px; /* jarak atas */
-    padding-bottom: 80px; /* jarak bawah */
+    min-height: 100vh;
+    /* full height viewport */
+    padding-top: 100px;
+    /* jarak atas */
+    padding-bottom: 80px;
+    /* jarak bawah */
     display: flex;
-    align-items: center; /* vertikal center konten */
+    align-items: center;
+    /* vertikal center konten */
 }
 
 @media (min-width: 768px) {
     #profil {
-        padding-bottom: 120px; /* jarak bawah lebih besar di desktop */
+        padding-bottom: 120px;
+        /* jarak bawah lebih besar di desktop */
     }
 }
 
@@ -77,14 +83,35 @@
    Paragraf Sambutan Kepala Desa
 ========================= */
 #profil p {
-    margin-bottom: 1.5rem; /* jarak antar paragraf */
-    line-height: 2; /* jarak baris agar mudah dibaca */
+    margin-bottom: 1.5rem;
+    /* jarak antar paragraf */
+    line-height: 2;
+    /* jarak baris agar mudah dibaca */
 }
 
 @media (max-width: 768px) {
     #profil p {
-        margin-bottom: 1.2rem; /* jarak lebih kecil di mobile */
+        margin-bottom: 1.2rem;
+        /* jarak lebih kecil di mobile */
     }
+}
+
+/* =========================
+   Person Card
+========================= */
+.person-card {
+    text-align: center;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border: 1px solid #dee2e6;
+    border-radius: 0.375rem;
+    background-color: #fff;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.person-card img {
+    margin: 0 auto 0.5rem;
+    display: block;
 }
 
 /* Animasi fade & slide dari bawah */

@@ -37,7 +37,7 @@
                     <div class="carousel-inner rounded shadow-lg">
                         @foreach ($galeri as $key => $foto)
                             <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-                                <img src="{{ asset('storage/' . $foto->gambar) }}" class="d-block w-100" style="height: 400px; object-fit: cover;" alt="{{ $foto->judul ?? 'Foto Desa' }}">
+                                <img src="{{ $foto->gambar_url }}" class="d-block w-100" style="height: 400px; object-fit: cover;" alt="{{ $foto->judul ?? 'Foto Desa' }}">
                             </div>
                         @endforeach
                     </div>

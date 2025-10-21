@@ -26,7 +26,11 @@
     {{-- Tahapan Pengajuan Proposal --}}
     <section class="py-5">
         <div class="container">
-            <h2 class="fw-bold mb-4 text-center">Tahapan Pengajuan Proposal</h2>
+            <div class="row mb-4">
+                <div class="col-12 text-center">
+                    <h2 class="fw-bold">Tahapan Pengajuan Proposal</h2>
+                </div>
+            </div>
             <div class="row g-4">
                 @php
                     $steps = [
@@ -34,7 +38,7 @@
                             'title' => 'Unduh Template Proposal',
                             'desc' => 'Warga mengunduh template proposal yang sudah disediakan oleh desa.',
                             'icon' => 'fas fa-download',
-                            'btn' => $proposals->isNotEmpty() ? route('user.layanan.proposal.download', $proposals->first()->id) : null,
+                            'btn' => url('/layanan/surat'),
                             'btnText' => 'Download Template',
                             'btnClass' => 'btn-primary',
                         ],

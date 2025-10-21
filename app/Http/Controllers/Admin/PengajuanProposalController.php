@@ -3,17 +3,31 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\PengajuanProposal;
+use Illuminate\Http\Request;
 
 class PengajuanProposalController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->authorizeResource(PengajuanProposal::class, 'pengajuanProposal');
+    }
+
     /**
      * Tampilkan semua pengajuan proposal
      */
-    public function index()
+    public function index(Request $request)
     {
-        $proposals = PengajuanProposal::all(); // ubah variabel jadi plural
+        $query = PengajuanProposal::query();
+
+        // Add search functionality
+        if ($request->has('search') && $request->search) {
+            $query->where('nama', 'like', '%'.$request->search.'%');
+        }
+
+        $proposals = $query->latest()->paginate(10)->appends($request->query());
+
         return view('admin.layanan.pengajuan_proposal.pengajuan_proposal', compact('proposals'));
     }
 
@@ -41,7 +55,6 @@ class PengajuanProposalController extends Controller
             ->with('success', 'Pengajuan berhasil ditambahkan.');
     }
 
-
     /**
      * Form edit pengajuan
      */
@@ -65,7 +78,6 @@ class PengajuanProposalController extends Controller
         return redirect()->route('admin.layanan.pengajuan_proposal.index')
             ->with('success', 'Pengajuan berhasil diperbarui.');
     }
-
 
     /**
      * Hapus pengajuan

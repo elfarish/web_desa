@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\PengajuanProposal;
 use App\Models\TamplateSurat;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class LayananController extends Controller
@@ -12,9 +13,17 @@ class LayananController extends Controller
     /**
      * Halaman daftar template surat (untuk user).
      */
-    public function surat()
+    public function surat(Request $request)
     {
-        $templates = TamplateSurat::latest()->get();
+        $query = TamplateSurat::query();
+
+        // Add search functionality
+        if ($request->has('search') && $request->search) {
+            $query->where('nama_template', 'like', '%'.$request->search.'%')
+                ->orWhere('kategori', 'like', '%'.$request->search.'%');
+        }
+
+        $templates = $query->latest()->paginate(10)->appends($request->query());
 
         return view('user.layanan.surat', compact('templates'));
     }
@@ -22,9 +31,16 @@ class LayananController extends Controller
     /**
      * Halaman daftar proposal (untuk user).
      */
-    public function proposal()
+    public function proposal(Request $request)
     {
-        $proposals = PengajuanProposal::latest()->get();
+        $query = PengajuanProposal::query();
+
+        // Add search functionality
+        if ($request->has('search') && $request->search) {
+            $query->where('nama', 'like', '%'.$request->search.'%');
+        }
+
+        $proposals = $query->latest()->paginate(10)->appends($request->query());
 
         return view('user.layanan.proposal', compact('proposals'));
     }

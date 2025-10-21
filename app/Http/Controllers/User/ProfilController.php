@@ -10,10 +10,10 @@ class ProfilController extends Controller
     // Halaman profil desa: Sejarah + Galeri
     public function index()
     {
-        $sejarah = "Desa Pabuaran memiliki sejarah panjang ...";
+        $sejarah = 'Desa Pabuaran memiliki sejarah panjang ...';
 
-        // Ambil semua galeri dari database
-        $galeri = Galeri::latest()->get();
+        // Ambil galeri dengan pagination
+        $galeri = Galeri::latest()->paginate(12);
 
         return view('user.profil.index', compact('sejarah', 'galeri'));
     }
@@ -21,10 +21,10 @@ class ProfilController extends Controller
     // Halaman sejarah desa (opsional)
     public function sejarah()
     {
-        $sejarah = "Desa Pabuaran memiliki sejarah panjang ...";
+        $sejarah = 'Desa Pabuaran memiliki sejarah panjang ...';
 
-        // Ambil semua galeri dari database
-        $galeri = Galeri::latest()->get();
+        // Ambil galeri dengan pagination
+        $galeri = Galeri::latest()->paginate(12);
 
         return view('user.profil.sejarah_desa', compact('sejarah', 'galeri'));
     }
@@ -32,18 +32,19 @@ class ProfilController extends Controller
     // Halaman profil desa (bisa digabung dengan index)
     public function profilDesa()
     {
-        $galeri = Galeri::latest()->get();
+        $galeri = Galeri::latest()->paginate(12);
+
         return view('user.profil.profil_desa', compact('galeri'));
     }
 
     // Halaman Visi & Misi
     public function visiMisi()
     {
-        $visi = "Menjadi desa yang mandiri, sejahtera, dan berbudaya.";
+        $visi = 'Menjadi desa yang mandiri, sejahtera, dan berbudaya.';
         $misi = [
-            "Meningkatkan kualitas pendidikan dan kesehatan masyarakat.",
-            "Mengembangkan ekonomi lokal melalui UMKM dan pertanian.",
-            "Mendorong partisipasi warga dalam pembangunan desa."
+            'Meningkatkan kualitas pendidikan dan kesehatan masyarakat.',
+            'Mengembangkan ekonomi lokal melalui UMKM dan pertanian.',
+            'Mendorong partisipasi warga dalam pembangunan desa.',
         ];
 
         return view('user.profil.visi_misi', compact('visi', 'misi'));

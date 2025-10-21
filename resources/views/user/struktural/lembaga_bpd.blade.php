@@ -8,19 +8,21 @@
 
 @section('content')
     {{-- Hero Section --}}
-    <section class="position-relative text-center" style="height: 250px; overflow: hidden;">
+    <section class="position-relative text-center" style="height: 300px; overflow: hidden;">
         <!-- Background + Blur -->
         <div class="position-absolute top-0 start-0 w-100 h-100"
             style="background: url('{{ asset('images/kantor_desa.png') }}') center/cover no-repeat;
-               filter: blur(3px); transform: scale(1.1); z-index:0;">
+               filter: blur(3px);
+               transform: scale(1.1);
+               z-index: 0;">
         </div>
         <!-- Overlay gelap -->
-        <div class="position-absolute top-0 start-0 w-100 h-100" style="background: rgba(0,0,0,0.5); z-index:1;"></div>
+        <div class="position-absolute top-0 start-0 w-100 h-100" style="background: rgba(0,0,0,0.5); z-index: 1;"></div>
         <!-- Konten -->
         <div class="position-relative text-white d-flex flex-column justify-content-center align-items-center h-100"
-            style="z-index:2;">
+            style="z-index: 2;">
             <h1 class="fw-bold display-5 text-shadow">Struktur Lembaga BPD</h1>
-            <p class="lead text-warning mb-0">Badan Permusyawaratan Desa Pabuaran</p>
+            <p class="lead text-warning">Badan Permusyawaratan Desa Pabuaran</p>
         </div>
     </section>
 
@@ -28,10 +30,10 @@
         {{-- Ketua --}}
         @if ($ketua)
             <div class="row justify-content-center mb-4">
-                <div class="col-12 col-sm-6 col-md-3 person-card">
-                    <img src="{{ $ketua->foto ? asset($ketua->foto) : asset('images/default-person.png') }}" style="max-width: 150px;" alt="{{ $ketua->nama }}">
-                    <h5>{{ $ketua->nama }}</h5>
-                    <small>{{ $ketua->jabatan }}</small>
+                <div class="col-md-3 col-sm-6 col-12 person-card text-center">
+                    <img src="{{ $ketua->foto ? $ketua->foto_url : asset('images/default-person.png') }}" class="img-fluid rounded shadow" style="max-width: 150px;" alt="{{ $ketua->nama }}" loading="lazy">
+                    <h5 class="mt-2 mb-0 fw-semibold">{{ $ketua->nama }}</h5>
+                    <small class="text-muted">{{ $ketua->jabatan }}</small>
                 </div>
             </div>
         @endif
@@ -39,17 +41,17 @@
         {{-- Wakil & Sekretaris --}}
         <div class="row justify-content-center mb-4">
             @if ($wakil)
-                <div class="col-12 col-sm-6 col-md-3 person-card">
-                    <img src="{{ $wakil->foto ? asset($wakil->foto) : asset('images/default-person.png') }}" style="max-width: 150px;" alt="{{ $wakil->nama }}">
-                    <h6>{{ $wakil->nama }}</h6>
-                    <small>{{ $wakil->jabatan }}</small>
+                <div class="col-md-3 col-sm-6 col-12 person-card text-center">
+                    <img src="{{ $wakil->foto ? $wakil->foto_url : asset('images/default-person.png') }}" class="img-fluid rounded shadow" style="max-width: 150px;" alt="{{ $wakil->nama }}" loading="lazy">
+                    <h6 class="mt-2 mb-0">{{ $wakil->nama }}</h6>
+                    <small class="text-muted">{{ $wakil->jabatan }}</small>
                 </div>
             @endif
             @if ($sekretaris)
-                <div class="col-12 col-sm-6 col-md-3 person-card">
-                    <img src="{{ $sekretaris->foto ? asset($sekretaris->foto) : asset('images/default-person.png') }}" style="max-width: 150px;" alt="{{ $sekretaris->nama }}">
-                    <h6>{{ $sekretaris->nama }}</h6>
-                    <small>{{ $sekretaris->jabatan }}</small>
+                <div class="col-md-3 col-sm-6 col-12 person-card text-center">
+                    <img src="{{ $sekretaris->foto ? $sekretaris->foto_url : asset('images/default-person.png') }}" class="img-fluid rounded shadow" style="max-width: 150px;" alt="{{ $sekretaris->nama }}" loading="lazy">
+                    <h6 class="mt-2 mb-0">{{ $sekretaris->nama }}</h6>
+                    <small class="text-muted">{{ $sekretaris->jabatan }}</small>
                 </div>
             @endif
         </div>
@@ -59,10 +61,10 @@
             <h5 class="text-center mb-3">Ketua Bidang</h5>
             <div class="row justify-content-center mb-4">
                 @foreach ($ketuaBidang as $kb)
-                    <div class="col-12 col-sm-6 col-md-3 person-card">
-                        <img src="{{ $kb->foto ? asset($kb->foto) : asset('images/default-person.png') }}" style="max-width: 150px;" alt="{{ $kb->nama }}">
-                        <h6>{{ $kb->nama }}</h6>
-                        <small>{{ $kb->jabatan }}</small>
+                    <div class="col-md-3 col-sm-6 col-12 person-card text-center">
+                        <img src="{{ $kb->foto ? $kb->foto_url : asset('images/default-person.png') }}" class="img-fluid rounded shadow" style="max-width: 150px;" alt="{{ $kb->nama }}" loading="lazy">
+                        <h6 class="mt-2 mb-0">{{ $kb->nama }}</h6>
+                        <small class="text-muted">{{ $kb->jabatan }}</small>
                     </div>
                 @endforeach
             </div>
@@ -73,10 +75,10 @@
             <h5 class="text-center mb-3">Anggota</h5>
             <div class="row justify-content-center">
                 @foreach ($anggota as $a)
-                    <div class="col-12 col-sm-6 col-md-2 person-card">
-                        <img src="{{ $a->foto ? asset($a->foto) : asset('images/default-person.png') }}" style="max-width: 150px;" alt="{{ $a->nama }}">
-                        <h6>{{ $a->nama }}</h6>
-                        <small>{{ $a->jabatan }}</small>
+                    <div class="col-md-2 col-sm-6 col-12 person-card text-center">
+                        <img src="{{ $a->foto ? $a->foto_url : asset('images/default-person.png') }}" class="img-fluid rounded shadow" style="max-width: 150px;" alt="{{ $a->nama }}" loading="lazy">
+                        <h6 class="mt-2 mb-0">{{ $a->nama }}</h6>
+                        <small class="text-muted">{{ $a->jabatan }}</small>
                     </div>
                 @endforeach
             </div>

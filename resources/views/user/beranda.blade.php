@@ -13,7 +13,7 @@
             <div class="carousel-inner">
                 @forelse ($slides ?? [] as $index => $slide)
                     <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                        <img src="{{ asset($slide->gambar) }}" class="d-block w-100" alt="Slide {{ $index + 1 }}">
+                        <img src="{{ $slide->gambar_url }}" class="d-block w-100" alt="Slide {{ $index + 1 }}">
                     </div>
                 @empty
                     <div class="carousel-item active">

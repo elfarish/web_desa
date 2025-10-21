@@ -3,16 +3,23 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Slide;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class SlideController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->authorizeResource(Slide::class, 'slide');
+    }
+
     public function index()
     {
-        $slides = Slide::all();
+        $slides = Slide::orderBy('created_at', 'desc')->paginate(10);
+
         return view('admin.beranda.slide_foto.slide', compact('slides'));
     }
 
@@ -30,7 +37,7 @@ class SlideController extends Controller
 
         if ($request->hasFile('gambar')) {
             $file = $request->file('gambar');
-            $filename = time() . '_' . Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $file->getClientOriginalExtension();
+            $filename = time().'_'.Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)).'.'.$file->getClientOriginalExtension();
             $path = $file->storeAs('slide', $filename, 'public');
         } else {
             $path = null;
@@ -64,7 +71,7 @@ class SlideController extends Controller
             }
 
             $file = $request->file('gambar');
-            $filename = time() . '_' . Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $file->getClientOriginalExtension();
+            $filename = time().'_'.Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)).'.'.$file->getClientOriginalExtension();
             $path = $file->storeAs('slide', $filename, 'public');
 
             $slide->gambar = $path;
