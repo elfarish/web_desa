@@ -31,7 +31,7 @@
         @if ($kepengurusan['kepalaDesa'])
             <div class="row justify-content-center mb-4">
                 <div class="col-md-3 col-sm-6 col-12 person-card text-center">
-                    <img src="{{ $kepengurusan['kepalaDesa']->foto ? asset($kepengurusan['kepalaDesa']->foto) : asset('storage/struktural/default_image.png') }}" class="img-fluid rounded shadow" alt="{{ $kepengurusan['kepalaDesa']->nama }}">
+                    <img src="{{ $kepengurusan['kepalaDesa']->foto ? asset($kepengurusan['kepalaDesa']->foto) : asset('images/default-person.png') }}" class="img-fluid rounded shadow" style="max-width: 150px;" alt="{{ $kepengurusan['kepalaDesa']->nama }}">
                     <h5 class="mt-2 mb-0 fw-semibold">{{ $kepengurusan['kepalaDesa']->nama }}</h5>
                     <small class="text-muted">{{ $kepengurusan['kepalaDesa']->jabatan }}</small>
                 </div>
@@ -42,7 +42,7 @@
         @if ($kepengurusan['sekdes'])
             <div class="row justify-content-center mb-4">
                 <div class="col-md-3 col-sm-6 col-12 person-card text-center">
-                    <img src="{{ $kepengurusan['sekdes']->foto ? asset($kepengurusan['sekdes']->foto) : asset('storage/struktural/default_image.png') }}" class="img-fluid rounded shadow" alt="{{ $kepengurusan['sekdes']->nama }}">
+                    <img src="{{ $kepengurusan['sekdes']->foto ? asset($kepengurusan['sekdes']->foto) : asset('images/default-person.png') }}" class="img-fluid rounded shadow" style="max-width: 150px;" alt="{{ $kepengurusan['sekdes']->nama }}">
                     <h5 class="mt-2 mb-0 fw-semibold">{{ $kepengurusan['sekdes']->nama }}</h5>
                     <small class="text-muted">{{ $kepengurusan['sekdes']->jabatan }}</small>
                 </div>
@@ -53,7 +53,7 @@
         <div class="row justify-content-center mb-4">
             @foreach ($kepengurusan['kasiKaur'] as $staf)
                 <div class="col-md-2 col-sm-6 col-12 person-card text-center">
-                    <img src="{{ $staf->foto ? asset($staf->foto) : asset('storage/struktural/default_image.png') }}" class="img-fluid rounded shadow" alt="{{ $staf->nama }}">
+                    <img src="{{ $staf->foto ? asset($staf->foto) : asset('images/default-person.png') }}" class="img-fluid rounded shadow" style="max-width: 150px;" alt="{{ $staf->nama }}">
                     <h6 class="mt-2 mb-0">{{ $staf->nama }}</h6>
                     <small class="text-muted">{{ $staf->jabatan }}</small>
                 </div>
@@ -64,7 +64,7 @@
         <div class="row justify-content-center mb-4">
             @foreach ($kepengurusan['kadus'] as $dusun)
                 <div class="col-md-2 col-sm-6 col-12 person-card text-center">
-                    <img src="{{ $dusun->foto ? asset($dusun->foto) : asset('storage/struktural/default_image.png') }}" class="img-fluid rounded shadow" alt="{{ $dusun->nama }}">
+                    <img src="{{ $dusun->foto ? asset($dusun->foto) : asset('images/default-person.png') }}" class="img-fluid rounded shadow" style="max-width: 150px;" alt="{{ $dusun->nama }}">
                     <h6 class="mt-2 mb-0">{{ $dusun->nama }}</h6>
                     <small class="text-muted">{{ $dusun->jabatan }}</small>
                 </div>
@@ -75,7 +75,7 @@
         <div class="row justify-content-center">
             @foreach ($kepengurusan['staf'] as $pembantu)
                 <div class="col-md-2 col-sm-6 col-12 person-card text-center">
-                    <img src="{{ $pembantu->foto ? asset($pembantu->foto) : asset('storage/struktural/default_image.png') }}" class="img-fluid rounded shadow" alt="{{ $pembantu->nama }}">
+                    <img src="{{ $pembantu->foto ? asset($pembantu->foto) : asset('images/default-person.png') }}" class="img-fluid rounded shadow" style="max-width: 150px;" alt="{{ $pembantu->nama }}">
                     <h6 class="mt-2 mb-0">{{ $pembantu->nama }}</h6>
                     <small class="text-muted">{{ $pembantu->jabatan }}</small>
                 </div>

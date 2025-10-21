@@ -29,7 +29,7 @@
         @if ($ketua)
             <div class="row justify-content-center mb-4">
                 <div class="col-12 col-sm-6 col-md-3 person-card">
-                    <img src="{{ $ketua->foto ? asset($ketua->foto) : asset('storage/struktural/default_image.png') }}" alt="{{ $ketua->nama }}">
+                    <img src="{{ $ketua->foto ? asset($ketua->foto) : asset('images/default-person.png') }}" style="max-width: 150px;" alt="{{ $ketua->nama }}">
                     <h5>{{ $ketua->nama }}</h5>
                     <small>{{ $ketua->jabatan }}</small>
                 </div>
@@ -40,14 +40,14 @@
         <div class="row justify-content-center mb-4">
             @if ($wakil)
                 <div class="col-12 col-sm-6 col-md-3 person-card">
-                    <img src="{{ $wakil->foto ? asset($wakil->foto) : asset('storage/struktural/default_image.png') }}" alt="{{ $wakil->nama }}">
+                    <img src="{{ $wakil->foto ? asset($wakil->foto) : asset('images/default-person.png') }}" style="max-width: 150px;" alt="{{ $wakil->nama }}">
                     <h6>{{ $wakil->nama }}</h6>
                     <small>{{ $wakil->jabatan }}</small>
                 </div>
             @endif
             @if ($sekretaris)
                 <div class="col-12 col-sm-6 col-md-3 person-card">
-                    <img src="{{ $sekretaris->foto ? asset($sekretaris->foto) : asset('storage/struktural/default_image.png') }}" alt="{{ $sekretaris->nama }}">
+                    <img src="{{ $sekretaris->foto ? asset($sekretaris->foto) : asset('images/default-person.png') }}" style="max-width: 150px;" alt="{{ $sekretaris->nama }}">
                     <h6>{{ $sekretaris->nama }}</h6>
                     <small>{{ $sekretaris->jabatan }}</small>
                 </div>
@@ -60,7 +60,7 @@
             <div class="row justify-content-center mb-4">
                 @foreach ($ketuaBidang as $kb)
                     <div class="col-12 col-sm-6 col-md-3 person-card">
-                        <img src="{{ $kb->foto ? asset($kb->foto) : asset('storage/struktural/default_image.png') }}" alt="{{ $kb->nama }}">
+                        <img src="{{ $kb->foto ? asset($kb->foto) : asset('images/default-person.png') }}" style="max-width: 150px;" alt="{{ $kb->nama }}">
                         <h6>{{ $kb->nama }}</h6>
                         <small>{{ $kb->jabatan }}</small>
                     </div>
@@ -74,7 +74,7 @@
             <div class="row justify-content-center">
                 @foreach ($anggota as $a)
                     <div class="col-12 col-sm-6 col-md-2 person-card">
-                        <img src="{{ $a->foto ? asset($a->foto) : asset('storage/struktural/default_image.png') }}" alt="{{ $a->nama }}">
+                        <img src="{{ $a->foto ? asset($a->foto) : asset('images/default-person.png') }}" style="max-width: 150px;" alt="{{ $a->nama }}">
                         <h6>{{ $a->nama }}</h6>
                         <small>{{ $a->jabatan }}</small>
                     </div>

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\TamplateSurat;
 use App\Models\PengajuanProposal;
+use App\Models\TamplateSurat;
 use Illuminate\Support\Facades\Storage;
 
 class LayananController extends Controller
@@ -38,7 +38,7 @@ class LayananController extends Controller
 
         // Cek apakah file ada di storage/public
         if ($template->file_path && Storage::disk('public')->exists($template->file_path)) {
-            return response()->download(storage_path('app/public/' . $template->file_path));
+            return response()->download(storage_path('app/public/'.$template->file_path), basename($template->file_path));
         }
 
         return redirect()->back()->with('error', 'File surat tidak ditemukan.');
@@ -53,7 +53,7 @@ class LayananController extends Controller
 
         // Cek apakah file ada di storage/public
         if ($proposal->file_path && Storage::disk('public')->exists($proposal->file_path)) {
-            return response()->download(storage_path('app/public/' . $proposal->file_path));
+            return response()->download(storage_path('app/public/'.$proposal->file_path));
         }
 
         // Kalau tidak ada file fisik, cek apakah ada link (Google Drive / URL eksternal)

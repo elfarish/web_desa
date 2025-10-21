@@ -37,12 +37,12 @@
                                 <span class="badge {{ $badgeClass }} mb-3 px-3 py-2 rounded-pill">
                                     {{ $kategori }}
                                 </span>
-                                <p class="card-text flex-grow-1 text-muted">
+                                <p class="card-text grow text-muted">
                                     {{ $template->deskripsi ?? 'Tidak ada deskripsi' }}
                                 </p>
                                 <div class="d-grid gap-2 mt-auto">
                                     @if ($fileExt === 'pdf')
-                                        <a href="{{ asset($template->file_path) }}" target="_blank" class="btn btn-outline-primary rounded-pill">
+                                        <a href="{{ asset('storage/' . $template->file_path) }}" target="_blank" class="btn btn-outline-primary rounded-pill">
                                             <i class="bi bi-eye"></i> Preview
                                         </a>
                                     @endif
