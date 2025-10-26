@@ -12,10 +12,10 @@
                     @foreach ($galeri as $foto)
                         <div class="col-6 col-md-3">
                             <div class="card h-100 border-0 shadow-sm pilih-gambar" style="cursor:pointer;"
-                                data-src="{{ asset( $foto->gambar) }}">
-                                <img src="{{ asset( $foto->gambar) }}"
+                                data-src="{{ $foto->gambar_url }}">
+                                <img src="{{ $foto->gambar_url }}"
                                     class="card-img-top rounded pilih-gambar" style="height:120px; object-fit:cover;"
-                                    data-src="{{ asset( $foto->gambar) }}">
+                                    data-src="{{ $foto->gambar_url }}">
                             </div>
 
                         </div>
