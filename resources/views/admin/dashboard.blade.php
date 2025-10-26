@@ -21,7 +21,7 @@
                 <div class="col-md-4 col-sm-6">
                     <div class="card-admin shadow-sm text-center p-4 h-100 bg-light border-dashed">
                         <i class="bi {{ $feature['icon'] }} fs-1 mb-3 text-muted"></i>
-                        <h5>{{ $feature['title'] }}</h5>
+                        <h4>{{ $feature['title'] }}</h5>
                         <p class="text-muted">{{ $feature['desc'] }}</p>
                         <button class="btn btn-secondary" disabled>Segera Hadir</button>
                     </div>
