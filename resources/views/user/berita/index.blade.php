@@ -55,11 +55,11 @@
                         <div class="card berita-card position-relative h-100 shadow-sm">
                             @if ($item->gambar)
                                 <img src="{{ $item->gambar_url }}" class="card-img-top" alt="{{ $item->judul }}">
+                                <span class="badge bg-success position-absolute top-0 end-0 m-2">{{ $item->kategori }}</span>
                             @endif
-                            <div class="card-badge">{{ $item->kategori }}</div>
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title fw-bold">{{ $item->judul }}</h5>
-                                <p class="card-text flex-grow-1">{{ $item->ringkasan }}</p>
+                                <p class="card-text grow">{{ $item->ringkasan }}</p>
                                 <a href="{{ route('user.berita.show', $item->slug) }}" class="btn btn-success btn-sm mt-auto">Baca Selengkapnya</a>
                             </div>
                             <div class="card-footer text-muted d-flex justify-content-between small">
