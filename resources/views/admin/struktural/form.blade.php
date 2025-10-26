@@ -103,10 +103,10 @@
                         </div>
 
                         {{-- Gambar Saat Ini --}}
-                        @if (isset($data) && $data->gambar)
+                        @if (isset($data) && $data->foto)
                             <div class="mt-2">
                                 <small class="text-muted d-block">Gambar saat ini:</small>
-                                <img src="{{ asset( $data->gambar) }}" width="150"
+                                <img src="{{ $data->foto_url }}" width="150"
                                     class="rounded shadow-sm mt-1">
                             </div>
                         @endif
